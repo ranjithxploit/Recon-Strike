@@ -1,0 +1,39 @@
+# Rust
+/target
+
+# IDEs
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment files
+.env
+.env.*
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.swp
+*.swo
+*~
+
+# Coverage
+coverage/
+*.profraw
+*.profdata
+
+# Build artifacts
+dist/
+build/
+
+# Rust analyzer
+.rust-analyzer/
+
+# Test outputs
+*.out
+Cargo.lock

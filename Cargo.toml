@@ -1,0 +1,16 @@
+[package]
+name = "recon-strike"
+version = "0.1.0"
+edition = "2021"
+description = "Recon Strike - Initial reconnaissance tool for target websites"
+
+[dependencies]
+tokio = { version = "1", features = ["full"] }
+reqwest = { version = "0.13", default-features = false, features = ["rustls"] }
+hickory-resolver = "0.26"
+clap = { version = "4.6", features = ["derive"] }
+colored = "3.1"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+openssl = "0.10"
+chrono = "0.4"
