@@ -80,7 +80,25 @@ struct Cli {
 #[tokio::main]
 async fn main() {
     let cli = Cli::parse();
-    let domain = cli.target.trim().to_lowercase();
+    let raw_target = cli.target.trim();
+
+    // Strip protocol and path, extract just the hostname
+    let domain = raw_target
+        .trim_start_matches("https://")
+        .trim_start_matches("http://")
+        .trim_start_matches("https//")
+        .trim_start_matches("http//")
+        .split('/')
+        .next()
+        .unwrap_or(raw_target)
+        .split('?')
+        .next()
+        .unwrap_or(raw_target)
+        .split('#')
+        .next()
+        .unwrap_or(raw_target)
+        .to_lowercase();
+
     let start = Instant::now();
 
     if !cli.quiet {
