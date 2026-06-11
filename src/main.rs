@@ -192,7 +192,8 @@ async fn main() {
 
     // ── Subdomain Discovery ──
     if run_all || cli.subdomains {
-        match subdomain::discover_from_crtsh(&domain, true).await {
+        info("Probing subdomains (crt.sh + DNS brute-force + zone transfer)...");
+        match subdomain::discover_all(&domain).await {
             Ok(subs) => {
                 sub_count = subs.len();
                 report::print_subdomains(&subs);
@@ -200,22 +201,6 @@ async fn main() {
             Err(e) => {
                 if cli.verbose {
                     warn(&format!("Subdomain discovery failed: {}", e));
-                }
-            }
-        }
-    }
-
-    // ── Subdomain Wordlist Discovery ──
-    if cli.sub_wordlist {
-        match subdomain::discover_wordlist(&domain).await {
-            Ok(subs) => {
-                let count = sub_count + subs.len();
-                sub_count = count;
-                report::print_subdomains(&subs);
-            }
-            Err(e) => {
-                if cli.verbose {
-                    warn(&format!("Wordlist subdomain discovery failed: {}", e));
                 }
             }
         }
