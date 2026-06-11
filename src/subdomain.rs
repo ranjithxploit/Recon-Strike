@@ -5,6 +5,7 @@ use serde::Deserialize;
 use crate::error::*;
 
 #[derive(Debug, Deserialize)]
+#[allow(dead_code)]
 struct CrtshEntry {
     #[serde(default)]
     name_value: String,

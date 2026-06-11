@@ -1,5 +1,3 @@
-use hickory_resolver::config::{ResolverConfig, ResolverOpts};
-use hickory_resolver::net::runtime::TokioRuntimeProvider;
 use hickory_resolver::proto::rr::RecordType;
 use hickory_resolver::Resolver;
 
@@ -8,6 +6,7 @@ use crate::error::*;
 pub struct DnsRecord {
     pub record_type: String,
     pub value: String,
+    #[allow(dead_code)]
     pub ttl: u32,
 }
 
@@ -17,13 +16,10 @@ pub struct DnsResult {
 }
 
 pub async fn enumerate(domain: &str) -> ReconResult<DnsResult> {
-    let config = ResolverConfig::default();
-    let _opts = ResolverOpts::default();
-    let runtime = TokioRuntimeProvider::default();
-
-    let resolver = Resolver::builder_with_config(config, runtime)
+    let resolver = Resolver::builder_tokio()
+        .map_err(|e| ReconError::Dns(format!("Failed to build resolver: {}", e)))?
         .build()
-        .map_err(|e| ReconError::Dns(format!("Failed to create resolver: {}", e)))?;
+        .map_err(|e| ReconError::Dns(format!("Failed to build resolver: {}", e)))?;
 
     let record_types = [
         (RecordType::A, "A"),

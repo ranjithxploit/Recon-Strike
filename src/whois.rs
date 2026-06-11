@@ -79,6 +79,7 @@ const TLD_WHOIS_MAP: &[(&str, &str)] = &[
     ("cloud", "whois.nic.cloud"),
 ];
 
+#[allow(dead_code)]
 pub struct WhoisResult {
     pub raw: String,
     pub registrar: Option<String>,

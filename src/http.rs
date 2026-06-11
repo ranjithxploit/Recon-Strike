@@ -15,6 +15,7 @@ pub struct HttpResult {
     pub response_time_ms: u64,
 }
 
+#[allow(dead_code)]
 pub struct HttpsResult {
     pub url: String,
     pub status_code: u16,
